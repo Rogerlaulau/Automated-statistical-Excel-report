@@ -1,0 +1,262 @@
+[
+    {
+        "FAQ_id":"[19:24e10d]",
+        "FAQ_Path": "2-ROOT->語言選擇",
+        "records":[
+            {
+                "date_time":"2021-04-01 00:00-00:59",
+                "triggered":4,
+                "responsed":5
+            },
+            {
+                "date_time":"2021-04-01 01:00-01:59",
+                "triggered":80,
+                "responsed":101
+            },
+            {
+                "date_time":"2021-04-02 00:00-00:59",
+                "triggered":14,
+                "responsed":3
+            },
+            {
+                "date_time":"2021-04-03 03:00-03:59",
+                "triggered":14,
+                "responsed":3
+            }
+        ]
+    },
+    {
+        "FAQ_id":"[19:e321cf]",
+        "FAQ_Path": "2-ROOT->語言選擇->主目錄",
+        "records":[
+            {
+                "date_time":"2021-04-01 00:00-00:59",
+                "triggered":6,
+                "responsed":5
+            },
+            {
+                "date_time":"2021-04-01 01:00-01:59",
+                "triggered":0,
+                "responsed":1
+            },
+            {
+                "date_time":"2021-04-02 00:00-00:59",
+                "triggered":12,
+                "responsed":2
+            },
+            {
+                "date_time":"2021-04-03 03:00-03:59",
+                "triggered":14,
+                "responsed":3
+            }
+        ]
+    },
+    {
+        "FAQ_id":"[19:e321cd]",
+        "FAQ_Path": "2-ROOT->語言選擇->主目錄->有關本銀行查詢",
+        "records":[
+            {
+                "date_time":"2021-04-01 00:00-00:59",
+                "triggered":34,
+                "responsed":4
+            },
+            {
+                "date_time":"2021-04-01 01:00-01:59",
+                "triggered":67,
+                "responsed":89
+            },
+            {
+                "date_time":"2021-04-02 00:00-00:59",
+                "triggered":123,
+                "responsed":7
+            },
+            {
+                "date_time":"2021-04-03 03:00-03:59",
+                "triggered":15,
+                "responsed":3
+            }
+        ]
+    },
+    {
+        "FAQ_id":"[19:e321cf]",
+        "FAQ_Path": "2-ROOT->語言選擇->主目錄->遺失信用卡->處理程序",
+        "records":[
+            {
+                "date_time":"2021-04-01 00:00-00:59",
+                "triggered":45,
+                "responsed":5
+            },
+            {
+                "date_time":"2021-04-01 01:00-01:59",
+                "triggered":89,
+                "responsed":90
+            },
+            {
+                "date_time":"2021-04-02 00:00-00:59",
+                "triggered":23,
+                "responsed":26
+            },
+            {
+                "date_time":"2021-04-03 03:00-03:59",
+                "triggered":9,
+                "responsed":3
+            }
+        ]
+    },
+    {
+        "FAQ_id":"[20:25e10d]",
+        "FAQ_Path": "2-ROOT->分行查詢->分行名單",
+        "records":[
+            {
+                "date_time":"2021-04-01 00:00-00:59",
+                "triggered":20,
+                "responsed":5
+            },
+            {
+                "date_time":"2021-04-01 01:00-01:59",
+                "triggered":11,
+                "responsed":111
+            },
+            {
+                "date_time":"2021-04-02 00:00-00:59",
+                "triggered":23,
+                "responsed":25
+            },
+            {
+                "date_time":"2021-04-03 03:00-03:59",
+                "triggered":79,
+                "responsed":90
+            }
+        ]
+    },
+    {
+        "FAQ_id":"[20:25e10f]",
+        "FAQ_Path": "2-ROOT->分行查詢->分行名單->開放時間",
+        "records":[
+            {
+                "date_time":"2021-04-01 00:00-00:59",
+                "triggered":44,
+                "responsed":53
+            },
+            {
+                "date_time":"2021-04-01 01:00-01:59",
+                "triggered":83,
+                "responsed":10
+            },
+            {
+                "date_time":"2021-04-02 00:00-00:59",
+                "triggered":14,
+                "responsed":39
+            },
+            {
+                "date_time":"2021-04-03 03:00-03:59",
+                "triggered":15,
+                "responsed":3
+            }
+        ]
+    },
+    {
+        "FAQ_id":"[21:23e11g]",
+        "FAQ_Path": "2-ROOT->語言選擇->主目錄->提款後沒有現金吐出",
+        "records":[
+            {
+                "date_time":"2021-04-01 00:00-00:59",
+                "triggered":85,
+                "responsed":3
+            },
+            {
+                "date_time":"2021-04-01 01:00-01:59",
+                "triggered":56,
+                "responsed":70
+            },
+            {
+                "date_time":"2021-04-02 00:00-00:59",
+                "triggered":110,
+                "responsed":110
+            },
+            {
+                "date_time":"2021-04-03 03:00-03:59",
+                "triggered":122,
+                "responsed":123
+            }
+        ]
+    },
+    {
+        "FAQ_id":"[22:23e134]",
+        "FAQ_Path": "2-ROOT->語言選擇->主目錄->3. 操作後忘記取回卡->忘記取回卡",
+        "records":[
+            {
+                "date_time":"2021-04-01 00:00-00:59",
+                "triggered":85,
+                "responsed":3
+            },
+            {
+                "date_time":"2021-04-01 01:00-01:59",
+                "triggered":56,
+                "responsed":70
+            },
+            {
+                "date_time":"2021-04-02 00:00-00:59",
+                "triggered":110,
+                "responsed":110
+            },
+            {
+                "date_time":"2021-04-03 03:00-03:59",
+                "triggered":122,
+                "responsed":123
+            }
+        ]
+    },
+    {
+        "FAQ_id":"[26:23e133]",
+        "FAQ_Path": "2-ROOT->語言選擇->主目錄->6. 跨銀行轉賬",
+        "records":[
+            {
+                "date_time":"2021-04-01 00:00-00:59",
+                "triggered":23,
+                "responsed":24
+            },
+            {
+                "date_time":"2021-04-01 01:00-01:59",
+                "triggered":56,
+                "responsed":58
+            },
+            {
+                "date_time":"2021-04-02 00:00-00:59",
+                "triggered":34,
+                "responsed":25
+            },
+            {
+                "date_time":"2021-04-03 03:00-03:59",
+                "triggered":67,
+                "responsed":44
+            }
+        ]
+    },
+    {
+        "FAQ_id":"[26:23e134]",
+        "FAQ_Path": "2-ROOT->語言選擇->主目錄->7. 同銀行轉賬",
+        "records":[
+            {
+                "date_time":"2021-04-01 00:00-00:59",
+                "triggered":45,
+                "responsed":7
+            },
+            {
+                "date_time":"2021-04-01 01:00-01:59",
+                "triggered":7,
+                "responsed":70
+            },
+            {
+                "date_time":"2021-04-02 00:00-00:59",
+                "triggered":12,
+                "responsed":15
+            },
+            {
+                "date_time":"2021-04-03 03:00-03:59",
+                "triggered":17,
+                "responsed":20
+            }
+        ]
+    }
+]
