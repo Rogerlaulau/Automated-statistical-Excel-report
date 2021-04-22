@@ -1,10 +1,11 @@
 from openpyxl.styles import Border, Side, PatternFill, Font, GradientFill, Alignment
-from openpyxl import Workbook
+from openpyxl import Workbook,drawing
 from openpyxl.utils import get_column_letter
 import json
 import pandas as pd
 from datetime import datetime
 import datetime as dt
+import matplotlib.pyplot as plt
 
 class Initiate_Sheets:
 
@@ -42,6 +43,7 @@ class Initiate_Sheets:
         self.overall_agent_performance_dict ={}
         #self.agents = ['BEN', 'ROGER']
         self.agents = set()
+        self.draw_plot_at_row = 25
 
         self.obtain_session_data(session_filename)
         self.get_agent_names()
@@ -49,6 +51,9 @@ class Initiate_Sheets:
         self.compute_agent_performance()
         self.compute_overall_agents_performance()
 
+        self.colors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink', 'brown', 'olive', 'cyan', 'skyblue', 'lightgreen', 'salmon', 'tomato', 'darkviolet', 'gold', 'lime', 'darkgreen', 'peru', 'darkcyan', 'violet', 'navy']  
+
+        
 
     def obtain_session_data(self, session_filename):
         #reformatted_session_data_dict = {}
@@ -594,6 +599,7 @@ class Initiate_Sheets:
                 row_counter+=1
             
         # ================ set date_time column name =============
+        # ================ filling each agent details ==============
         # start at column 3 which is Column C
         column_counter = 2
         for key, agent_ls in self.agent_performance_dict.items():
@@ -616,6 +622,8 @@ class Initiate_Sheets:
                 for row_name in row_name_ls:
                     self.agent_ws[column_letter+str(row_counter)] = agent[row_name]
                     row_counter +=1
+        
+        self.draw_plot_at_row = row_counter
 
         # ================ filling overall details ==============
         column_counter = 2
@@ -685,6 +693,10 @@ class Initiate_Sheets:
             self.utilization_ws[item[1]].border = Border(left=self.thin, right=self.thin, bottom=self.thin, top=self.thin)
 
 
+        y_ivr_calls = []
+        y_agent_calls = []
+        x = []
+
         # ================== set time in rows ==========================
         row_counter = 4
         for datetime, detail in self.datetime_list_5min.items():
@@ -695,9 +707,44 @@ class Initiate_Sheets:
             self.utilization_ws['E'+str(row_counter)].value = detail['agent_calls']
             self.utilization_ws['F'+str(row_counter)].value = detail['agent_throu']
 
+            x.append(datetime)
+            y_ivr_calls.append(detail['ivr_calls'])
+            y_agent_calls.append(detail['agent_calls'])
+
         self.set_border(self.utilization_ws, 'B5:B'+str(row_counter))
         self.set_border(self.utilization_ws, 'C5:D'+str(row_counter))
         self.set_border(self.utilization_ws, 'E5:F'+str(row_counter))
+
+
+        # =================== plot graph ==============================
+        fig = plt.figure()
+        plt.plot(x, y_ivr_calls, color='red', marker='o', linestyle='dashed', linewidth=2, markersize=8, label='IVR')
+        plt.plot(x, y_agent_calls, color='blue', marker='o', linestyle='dashed', linewidth=2, markersize=8, label='Agent ACD')
+
+        plt.xlabel('Date and Time')
+        plt.ylabel('Amount')
+
+        plt.title('Number of call')
+        plt.legend()  # to show legend
+        #plt.show()
+
+        # rotate the xticks in vertical
+        plt.xticks(rotation=90)
+        # in order to fully display the long xticks
+        plt.tight_layout()
+
+        # set plot height and width
+        fig.set_figheight(10)
+        #fig.set_figwidth(len(x))
+        # fig.set_figheight(10)
+        fig.set_figwidth(100)
+
+        plt.savefig('utilization.png')
+        print('utilization.png is generated')
+
+        img = drawing.image.Image('utilization.png')
+        img.anchor = "I4"
+        self.utilization_ws.add_image(img)
 
 
     def save_file(self, out_filename):
@@ -739,24 +786,133 @@ class Initiate_Sheets:
         return datelist
 
 
-# filename = "template.json"
-# create_statistic_ws(filename)
-# create_overall_ws()
-# create_agent_ws()
-# create_utilization_ws()
+    def plot_graph(self, out_filename, x, ys, title):
+        '''
+        ONLY PLOT GRAPH USING MATPLOTLIB
+        ys: a list of 3 small lists in which each represents a line, for plot the graph for the overall Total_Number_of_Call, ys will be simple a list of numerics
+        x: a list of xticks
+        out_filename: the filename to save the plot
+        title: the title of the plot
+        '''
+        fig = plt.figure()
+        #print(f'len of ys: {len(ys)}')
+        if len(ys) == 0:
+            raise Exception("plot_graph - Empty list for ploting graphs")
+        elif len(ys) == 3:
+            agent_ls = list(self.agents)
+            agent_ls.append("OVERALL")
+            for i, y in enumerate(ys):
+                #print(y)
+                # draw a line based on the coordinates
+                plt.plot(x, y, color=self.colors[i], marker='o', linestyle='dashed', linewidth=2, markersize=8, label=agent_ls[i])
+        else:
+            plt.plot(x, ys, color='black', marker='o', linestyle='dashed', linewidth=2, markersize=8, label='OVERALL')
 
-# wb.save("statistic2.xlsx")
-# print('done')
+        plt.xlabel('Date and Time')
+        #plt.ylabel('Amount')
 
-# # with open(filename, encoding='utf-8') as file_object:
-# #     data = json.load(file_object)
-# # print(get_list_daily_amount_triggered_responsed(data))
+        plt.title(title)
+        plt.legend()  # to show legend
+        #plt.show()
+
+        # rotate the xticks in vertical
+        plt.xticks(rotation=90)
+        # in order to fully display the long xticks
+        plt.tight_layout()
+
+        # set plot height and width
+        fig.set_figheight(10)
+        fig.set_figwidth(len(x))
+        # fig.set_figheight(10)
+        # fig.set_figwidth(20)
+
+        #plt.savefig("matplotlib_test1.png")
+        plt.savefig(f'{out_filename}.png')
+        print(f'{out_filename}.png is generated')
 
 
+    def display_agent_performance_plots(self):
+        x = []
+        ys_Number_of_Calls_Handled = []
+        ys_Average_Call_Duration   = []
+        ys_Average_Wait_Time       = []
+
+        for _ in range(len(self.agents)):            
+            ys_Number_of_Calls_Handled.append([])
+            ys_Average_Call_Duration.append([])
+            ys_Average_Wait_Time.append([])
+
+        # print(f'ys_Number_of_Calls_Handled: {ys_Number_of_Calls_Handled}')
+        # print(f'ys_Average_Call_Duration: {ys_Average_Call_Duration}')
+        # print(f'ys_Average_Wait_Time: {ys_Average_Wait_Time}')
+
+        for date_time, _ in self.agent_performance_dict.items():
+            x.append(date_time)
+
+        #============ get data on each agent ===============
+        for i, agent_name in enumerate(self.agents):
+            for _, agent_ls in self.agent_performance_dict.items():
+                for item in agent_ls:
+                    if item["Agent"] == agent_name:
+                        ys_Number_of_Calls_Handled[i].append(item['Number_of_Calls_Handled'])
+                        ys_Average_Call_Duration[i].append(item['Average_Call_Duration'])
+                        ys_Average_Wait_Time[i].append(item['Average_Wait_Time'])
+                        break
+
+        #============ get data on overall ===============
+        y_Total_Number_of_Call = []
+        y_overall_Calls_Handled = []
+        y_overall_Call_Duration = []
+        y_overall_Wait_Time = []
+        for _, item in self.overall_agent_performance_dict.items():
+            y_Total_Number_of_Call.append(item['Total_Number_of_Call'])  # special case
+            y_overall_Calls_Handled.append(item['Number_of_Calls_Handled'])
+            y_overall_Call_Duration.append(item['Average_Call_Duration'])
+            y_overall_Wait_Time.append(item['Average_Wait_Time'])
+
+        # overall data is placed at the end of each list    
+        ys_Number_of_Calls_Handled.append(y_overall_Calls_Handled)
+        ys_Average_Call_Duration.append(y_overall_Call_Duration)
+        ys_Average_Wait_Time.append(y_overall_Wait_Time)
+
+        #print('display_agent_performance_plots')
+
+        # print(f'len of x: {len(x)}')
+        # print(f'len of y_Total_Number_of_Call: {len(y_Total_Number_of_Call)}')
+        #print(y_Total_Number_of_Call)
+        # print(f'len of ys_Number_of_Calls_Handled[0]: {len(ys_Number_of_Calls_Handled[0])}')
+        # print(f'len of ys_Number_of_Calls_Handled[1]: {len(ys_Number_of_Calls_Handled[1])}')
+        # print(f'len of ys_Average_Call_Duration[0]: {len(ys_Average_Call_Duration[0])}')
+        # print(f'len of ys_Average_Call_Duration[1]: {len(ys_Average_Call_Duration[1])}')
+        # for item in zip(x, ys_Average_Call_Duration[0], ys_Average_Call_Duration[1]):
+        #     print(item)
+
+        
+        self.plot_graph("Number_of_Calls_Handled", x, ys_Number_of_Calls_Handled, "Number_of_Calls_Handled")
+        img = drawing.image.Image('Number_of_Calls_Handled.png')
+        #img.anchor = "B25"
+        img.anchor = "B"+str(self.draw_plot_at_row+3)
+        self.agent_ws.add_image(img)
+
+        self.plot_graph("Average_Call_Duration", x, ys_Average_Call_Duration, "Average_Call_Duration")
+        img = drawing.image.Image('Average_Call_Duration.png')
+        #img.anchor = "B80"
+        img.anchor = "B"+str(self.draw_plot_at_row+69)
+        self.agent_ws.add_image(img)
+
+        self.plot_graph("Average_Wait_Time", x, ys_Average_Wait_Time, "Average_Wait_Time")
+        img = drawing.image.Image('Average_Wait_Time.png')
+        #img.anchor = "B140"
+        img.anchor = "B"+str(self.draw_plot_at_row+125)
+        self.agent_ws.add_image(img)
 
 
-
-
+        ###### for overall amount of calls #####
+        self.plot_graph("Total_Number_of_Call", x, y_Total_Number_of_Call, "Total_Number_of_Call")
+        img = drawing.image.Image('Total_Number_of_Call.png')
+        #img.anchor = "B188"
+        img.anchor = "B"+str(self.draw_plot_at_row+181)
+        self.agent_ws.add_image(img)
 
 
 

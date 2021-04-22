@@ -75,8 +75,10 @@ mysheets.create_overall_ws()
 #mysheets.overall_ws['A1'].value = "THIS IS TESTING CASE"
 
 
-# REMEMBER: MODIFICATION TAKES EFFECT ONLY PRIOR TO SAVE FILE
+mysheets.display_agent_performance_plots()
 
+
+# REMEMBER: MODIFICATION TAKES EFFECT ONLY PRIOR TO SAVE FILE
 mysheets.save_file(out_filename+'.xlsx')
 print(f'Done saving [{out_filename}.xlsx]')
 
