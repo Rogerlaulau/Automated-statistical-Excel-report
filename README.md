@@ -78,13 +78,15 @@ ws[cell].font = Font(name=fontname, size=size, bold=bold)
 
 
 
+# Command line with help
+python filename.py -h
+![alt text](command_line_help.png "Title Text")
+
+
+# Visualize tables with Matplotlib
+![alt text](matplotlib.png "Title Text")
 
 
 
 
 
-
-
-
-
-# automate-data-visualization-in-Excel
